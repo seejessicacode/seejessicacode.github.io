@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'fairy_strangeregular';
+    src: url('webfontkit-fairy_strange/fairy_strange-webfont.eot');
+    src: url('webfontkit-fairy_strange/fairy_strange-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfontkit-fairy_strange/fairy_strange-webfont.woff') format('woff'),
+         url('webfontkit-fairy_strange/fairy_strange-webfont.ttf') format('truetype'),
+         url('webfontkit-fairy_strange/fairy_strange-webfont.svg#fairy_strangeregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+a img:hover {
+  opacity: 0.5;
+  filter:alpha(opacity=50); /* For IE8 and earlier */
+}
+
+.title, .title a, .title a:hover, .title a:visited {
+	font-family: fairy_strangeregular;
+	font-weight: normal;
+	font-size: 2.25em;
+	line-height: 2.25em;
+	color: #000;
+	text-decoration: none;
+}
+
+span.icon{
+	padding-right: 35px;
+}
