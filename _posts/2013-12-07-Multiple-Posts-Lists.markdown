@@ -14,15 +14,11 @@ Jekyll blog's [default setup][dir-struct-info].
 
 Since I wanted blog posts and FAQs to be listed on separate pages I made two new folders, <span style="font-style: italic;">blog</span> and 
 <span style="font-style: italic;">faq</span>. In each folder, I include an index page and a folder named 
-<span style="font-style: italic;">&#95;posts</span>. From this point on, I'll explain the changes made for FAQs sake and you can assume the
+<span style="font-style: italic;">&#95; posts</span>. From this point on, I'll explain the changes made for FAQs sake and you can assume the
 same goes for blog posts.
-<p class="text-muted" align="center">
-	<img align="center" src="/img/posts/2013-12-07-Multiple-Posts-Lists/directory-structure.PNG" alt="directory structure screenshot" />
-	</br>
-	<small><em>&#91;Directory structure of jekyll blog&#93;</em></small>
-</p>
+<p class="text-muted" align="center"><img align="center" src="/img/posts/2013-12-07-Multiple-Posts-Lists/directory-structure.PNG" alt="directory structure screenshot" /></br><small><em>&#91;Directory structure of jekyll blog&#93;</em></small></p>
 
-Inside <span style="font-style: italic;">&#95;posts</span> is where you'll keep a file for each FAQ item. Note that the assigned layout is
+Inside <span style="font-style: italic;">&#95; posts</span> is where you'll keep a file for each FAQ item. Note that the assigned layout is
 <span style="font-style: italic;">faq_post</span>, which will be explained later.
 
 <strong>FAQ post file:</strong>
@@ -62,11 +58,7 @@ Next change I made to the directory/file structure was to the &#95;layouts folde
 into two files, <span style="font-style: italic;">blog_post.html</span> and <span style="font-style: italic;">faq_post.html</span>. You do
 not need to do this unless actual the layout of blog and faq pages will differ. In my case, I wanted to keep the active navigation menu item
 highlighted without making sure every faq or blog post had the correct category when their layouts can manage that.
-<p class="text-muted" align="center">
-	<img align="center" src="/img/posts/2013-12-07-Multiple-Posts-Lists/post_layouts.PNG" alt="post layout file list screenshot" />
-	</br>
-	<small><em>&#91;Multiple post layout files for each separate list of posts&#93;</em></small>
-</p>
+<p class="text-muted" align="center"><img align="center" src="/img/posts/2013-12-07-Multiple-Posts-Lists/post_layouts.PNG" alt="post layout file list screenshot" /></br><small><em>&#91;Multiple post layout files for each separate list of posts&#93;</em></small></p>
 
 <strong>FAQ post layout:</strong>
 
@@ -82,11 +74,7 @@ category: faq
 &lt;/div&gt;
 </code></pre></div>
 
-<p class="text-muted" align="center">
-	<img align="center" style="box-shadow: 10px 5px 5px gray;" src="/img/posts/2013-12-07-Multiple-Posts-Lists/nav-pill-highlight.PNG" alt="navigation pill screenshot" />
-	</br>
-	<small><em>&#91;Navigation pills highlighted based on page layout category&#93;</em></small>
-</p>
+<p class="text-muted" align="center"><img align="center" style="box-shadow: 10px 5px 5px gray;" src="/img/posts/2013-12-07-Multiple-Posts-Lists/nav-pill-highlight.PNG" alt="navigation pill screenshot" /></br><small><em>&#91;Navigation pills highlighted based on page layout category&#93;</em></small></p>
 
 Ideally, I would provide screenshots of the final results but the site has not yet gone live at the time of this post. The site is open
 sourced so you're welcome to take a look at my [committed code in GitHub][git-commit].

@@ -38,14 +38,10 @@ One more time but in an ordered list:
 For more woeful tales of Jekyll, refer to my [Github Page][link-name].
 
 Let's reference the same link to my Github page, but in an unordered list:
-<ul>
-	<li>[Github Page][link-name]</li>
-</ul>
+<ul><li>[Github Page][link-name]</li></ul>
 
 One more time but in an ordered list:
-<ol>
-	<li>[Github Page][link-name]</li>
-</ol>
+<ol><li>[Github Page][link-name]</li></ol>
 
 [jekyll-tricky]: http://campbeja.github.io/2013/09/07/Jekyll-can-be-tricky-business.html
 [link-name]: /

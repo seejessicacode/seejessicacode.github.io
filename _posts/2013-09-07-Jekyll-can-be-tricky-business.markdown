@@ -14,12 +14,7 @@ difficult to keep track. I definitely don't want to write a new .html file every
 I've worked with Wordpress and Joomla in the past, but Github pages do not support those and their [documentation][github-pages] pointed me to [Jekyll][jekyll].
 
 Setting up my Jekyll blog was not a simple task for a few reasons:
-<ol>
-	<li>Jekyll requires Ruby. Ruby doesn't play nice with Windows, which is the only brand of operating system that I use daily.</li>
-	<li>If you want syntax highlighting for code snippets, you will need to install [Pygments][pygments-link]. However, in my case, Pygments kept breaking Jekyll. 
-	After a couple weekends of searching, I still had no solution and chose to just discard it.</li>
-	<li>Jekyll doesn't support blog tags, not really. You can add a tag attribute to a post but Jekyll does nothing to link common tags.</li>
-</ol>
+<ol><li>Jekyll requires Ruby. Ruby doesn't play nice with Windows, which is the only brand of operating system that I use daily.</li><li>If you want syntax highlighting for code snippets, you will need to install [Pygments][pygments-link]. However, in my case, Pygments kept breaking Jekyll. After a couple weekends of searching, I still had no solution and chose to just discard it.</li><li>Jekyll doesn't support blog tags, not really. You can add a tag attribute to a post but Jekyll does nothing to link common tags.</li></ol>
 
 The first two issues are not fresh enough in my mind to clarify further but I can elaborate on implementing tags in Jekyll. I followed Charlie Park's 
 instructions in ["Tags in Jekyll"][jekyll-tags] and was able to display tags as links to related posts on localhost... and only localhost. Github pages do not 
