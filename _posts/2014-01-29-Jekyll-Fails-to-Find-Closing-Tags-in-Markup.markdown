@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Jekyll 1.4.3 Hates Windows (or vice versa)"
+title:  "Jekyll Fails to Find Closing Tags in Markup"
 date:   2014-01-29
 tags:
 - Jekyll
-- Windows
+- Jekyll v1.4.3
 ---
 
 As I was adding RSS feed to this blog, I ran into some trouble. Although the my efforts were successful on both master and development branches, they 
@@ -72,22 +72,13 @@ Finally being able to duplicate the build error, I came to learn that Jekyll cou
 same line as its opening tag.
 
 So instead of writing an HTMl list like a normal person:
-{% highlight html %}
-<ol>
-   <li>List item 1</li>
-   <li>List item 2</li>
-</ol>
-{% endhighlight %}
+<div><pre><code class='html'>&lt;ol&gt;<br>   &lt;li&gt;List item 1&lt;/li&gt;<br>   &lt;li&gt;List item 2&lt;/li&gt;<br>&lt;/ol&gt;</code></pre></div>
 
 You have to write an HTML list like so:
-{% highlight html %}
-<ol><li>List item 1</li><li>List item 2</li></ol>
-{% endhighlight %}
+<div><pre><code class='html'>&lt;ol&gt;&lt;li&gt;List item 1&lt;/li&gt;&lt;li&gt;List item 2&lt;/li&gt;&lt;/ol&gt;</code></pre></div>
 
-This odd behaviour does not appear to apply to &lt;p&gt; or &lt;blockquotes&gt;.
-
-
-See [this][jekyll-bug]
+This odd behaviour does not appear to apply to &lt;p&gt;, &lt;blockquotes&gt;, or Jekyll v1.4.2 (an older version I had to install for other issues
+I intend to share later. The current version of Jekyll as of the time of this post is Jekyll v1.4.3)
 
 [github-jekyll]: https://help.github.com/articles/pages-don-t-build-unable-to-run-jekyll#viewing-build-error-messages
 [github-pages]: https://help.github.com/articles/user-organization-and-project-pages
