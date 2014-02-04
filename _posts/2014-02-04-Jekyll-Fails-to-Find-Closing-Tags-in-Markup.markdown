@@ -79,7 +79,7 @@ So instead of writing an HTML list like a normal person:
 You have to write an HTML list like a goober:
 <div><pre><code class='html'>&lt;ol&gt;&lt;li&gt;List item 1&lt;/li&gt;&lt;li&gt;List item 2&lt;/li&gt;&lt;/ol&gt;</code></pre></div>
 
-If you look at my source code for this blog post, you'll see I couldn't even do <code>&#123;&#37; highlight HTML &#37;&#125; ... &#123;&#37; endhighlight &#37;&#125;</code> as advertised
+If you look at my [source code][source-code] for this blog post, you'll see I couldn't even do <code>&#123;&#37; highlight HTML &#37;&#125; ... &#123;&#37; endhighlight &#37;&#125;</code> as advertised
 in [Jekyll's post documentation][jekyll-doc] because the end result will be HTML div, pre, and code tags that do not begin and end on the same line.
 
 This odd behavior does not appear to apply to &lt;p&gt;, &lt;blockquotes&gt;, or Jekyll v1.4.2 (an older version I had to install for [other issues][jekyll-bug]
@@ -87,5 +87,6 @@ I intend to share later.)
 
 [github-jekyll]: https://help.github.com/articles/pages-don-t-build-unable-to-run-jekyll#viewing-build-error-messages
 [github-pages]: https://help.github.com/articles/user-organization-and-project-pages
+[source-code]: https://raw.github.com/campbeja/campbeja.github.io/dev/_posts/2014-02-04-Jekyll-Fails-to-Find-Closing-Tags-in-Markup.markdown
 [jekyll-doc]: http://jekyllrb.com/docs/posts/
 [jekyll-bug]: http://stackoverflow.com/questions/21137096/jekyll-error-running-jekyll-serve#
