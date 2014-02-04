@@ -1,21 +1,245 @@
----
-layout: none
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
         <channel>
-                <title>{{ site.name | xml_escape }}</title>
-                <description>{{ site.description | xml_escape }}</description>
-                <link>{{ site.url }}</link>
-                <atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml" />
-                {% for post in site.posts limit:10 %}
+                <title>See Jessica Code.</title>
+                <description>See Jessica Code in a blog.</description>
+                <link>http://campbeja.github.io/</link>
+                <atom:link href="http://campbeja.github.io//feed.xml" rel="self" type="application/rss+xml" />
+                
                         <item>
-                                <title>{{ post.title | xml_escape }}</title>
-                                <description>{{ post.content | xml_escape }}</description>
-                                <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
-                                <link>{{ site.url }}/{{ post.url }}</link>
-                                <guid isPermaLink="true">{{ site.url }}/{{ post.url }}</guid>
+                                <title>Jekyll Fails to Find Closing Tags in Markup</title>
+                                <description>
+&lt;p&gt;As I was adding RSS feed to this blog, I ran into some trouble. Although the my efforts were successful on both master and development branches, my success was limited to my local machine. When I tried to push my changes to GitHub, I received the following build error:&lt;/p&gt;
+&lt;pre&gt;The file `_posts/2013-09-07-Jekyll-can-be-tricky-business.markdown` contains markdown errors&lt;/pre&gt;
+&lt;p&gt;Not only couldn’t I reproduce this error locally, but the post in question was published successfully without issue or changes to it since it was published! Since I couldn’t reproduce this error locally, I could not get a stack trace. Even rolling back my changes didn’t get rid of this error, so after reading &lt;a href=&quot;https://help.github.com/articles/pages-don-t-build-unable-to-run-jekyll#viewing-build-error-messages&quot;&gt;GitHub’s support documentation&lt;/a&gt; with no help, I contacted GitHub support to request a stack trace.&lt;/p&gt;
+&lt;pre&gt;
+ ___________________________________________________________________________
+| Maruku tells you:
++---------------------------------------------------------------------------
+| Malformed HTML starting at &quot;&amp;lt;ol&amp;gt;&quot;
+| ---------------------------------------------------------------------------
+| &amp;lt;ol&amp;gt;EOF
+| |---------------------------------------------------------------------------
+| +--- Byte 0
+| Shown bytes [0 to 4] of 4:
+| &amp;gt;&amp;lt;ol&amp;gt;
+|
+| At line 7
+|       text     |I've worked with Wordpress and Joomla in the past, but Github pages do not support those and their &amp;#91;documentation&amp;#93;&amp;#91;github-pages&amp;#93; pointed me to &amp;#91;Jekyll&amp;#93;&amp;#91;jekyll&amp;#93;.|
+|      empty     ||
+|       text     |Setting up my Jekyll blog was not a simple task for a few reasons:|
+|   raw_html --&gt; |&amp;lt;ol&amp;gt;|
+|       code     |      &amp;lt;li&amp;gt;Jekyll requires Ruby. Ruby doesn't play nice with Windows, which is the only brand of operating system that I use daily.&amp;lt;/li&amp;gt;|
+|       code     |      &amp;lt;li&amp;gt;If you want syntax highlighting for code snippets, you will need to install &amp;#91;Pygments&amp;#93;&amp;#91;pygments-link&amp;#93;. However, in my case, Pygments kept breaking Jekyll. |
+|       code     |      After a couple weekends of searching, I still had no solution and chose to just discard it.&amp;lt;/li&amp;gt;|
+ ___________________________________________________________________________
+| Maruku tells you:
++---------------------------------------------------------------------------
+| Maruku cannot parse this block of HTML/XML:
+| |&amp;lt;ol&amp;gt;
+| &amp;#35;&amp;lt;REXML::ParseException: Missing end tag for 'ol' (got &quot;html&quot;)
+| Line: 4
+| Position: 163
+| ...
+| Missing end tag for 'ol' (got &quot;html&quot;)
+| Line: 4
+| Position: 163
+| Last 80 unconsumed characters:
+|
+| Line: 4
+| Position: 163
+\___________________________________________________________________________
+&lt;/pre&gt;
+&lt;p&gt;As I looked at my source code, I clearly had an end tag for my &amp;lt;ol&amp;gt; list. Even with the stack trace, I still couldn’t duplicate the error on my personal machine, preventing me from viewing the results of my experiments.&lt;/p&gt;
+
+&lt;p&gt;One of my attempts to fix my GitHub repo’s build error was to delete the entire repo and try again, a relatively extreme action. This idea was bad because it lost my commit history which would have proved that this error appeared seemingly out of nowhere–so now I am just a crazy person. What gave me this idea came from a past issue that remains unexplained. When writing one of my earlier posts, Jekyll couldn’t build my site due to a markdown error I could not find even with the stack trace, file name, and line number. Running out of ideas, I created another Jekyll site and replaced the contents with those from my site and everything built and displayed without issue. Since GitHub only allows one &lt;a href=&quot;https://help.github.com/articles/user-organization-and-project-pages&quot;&gt;user page&lt;/a&gt; per account (I assumed I’d run into other hiccups if I tried project pages, but I should’ve done that before deleting a repo), I deleted my repo and made it again, but the build error remained.&lt;/p&gt;
+
+&lt;p&gt;Eventually, I tried building my site from work. I already had Jekyll installed but never really used it, because we don’t use it at work, and I’m supposed to be… working. I needed a mental break from a project, so I cloned my broken site and built it -or tried to- because I had finally duplicated repo server’s build error! The version of Windows 7 and Ruby are the same as my personal machine but my work machine is running Jekyll v1.2.1, while I have v1.4.2 at home and GitHub as v1.4.3.&lt;/p&gt;
+
+&lt;p&gt;Finally being able to duplicate the build error, I came to learn that Jekyll could no longer identify a closing tag a for list or list item if it is not on the same line as its opening tag.&lt;/p&gt;
+
+&lt;p&gt;So instead of writing an HTML list like a normal person:&lt;/p&gt;
+&lt;div&gt;&lt;pre&gt;&lt;code class='html'&gt;&amp;lt;ol&amp;gt;&lt;br /&gt;   &amp;lt;li&amp;gt;List item 1&amp;lt;/li&amp;gt;&lt;br /&gt;   &amp;lt;li&amp;gt;List item 2&amp;lt;/li&amp;gt;&lt;br /&gt;&amp;lt;/ol&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You have to write an HTML list like a goober:&lt;/p&gt;
+&lt;div&gt;&lt;pre&gt;&lt;code class='html'&gt;&amp;lt;ol&amp;gt;&amp;lt;li&amp;gt;List item 1&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;List item 2&amp;lt;/li&amp;gt;&amp;lt;/ol&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you look at my &lt;a href=&quot;https://raw.github.com/campbeja/campbeja.github.io/dev/_posts/2014-02-04-Jekyll-Fails-to-Find-Closing-Tags-in-Markup.markdown&quot;&gt;source code&lt;/a&gt; for this blog post, you’ll see I couldn’t even do &lt;code&gt;{% highlight HTML %} … {% endhighlight %}&lt;/code&gt; as advertised in &lt;a href=&quot;http://jekyllrb.com/docs/posts/&quot;&gt;Jekyll’s post documentation&lt;/a&gt; because the end result will be HTML div, pre, and code tags that do not begin and end on the same line.&lt;/p&gt;
+
+&lt;p&gt;This odd behavior does not appear to apply to &amp;lt;p&amp;gt;, &amp;lt;blockquotes&amp;gt;, or Jekyll v1.4.2 (an older version I had to install for &lt;a href=&quot;http://stackoverflow.com/questions/21137096/jekyll-error-running-jekyll-serve#&quot;&gt;other issues&lt;/a&gt; I intend to share later.)&lt;/p&gt;
+</description>
+                                <pubDate>Tue, 04 Feb 2014 00:00:00 -0600</pubDate>
+                                <link>http://campbeja.github.io///2014/02/04/Jekyll-Fails-to-Find-Closing-Tags-in-Markup.html</link>
+                                <guid isPermaLink="true">http://campbeja.github.io///2014/02/04/Jekyll-Fails-to-Find-Closing-Tags-in-Markup.html</guid>
                         </item>
-                {% endfor %}
+                
+                        <item>
+                                <title>Maintaining Multiple Post Lists in Jekyll</title>
+                                <description>
+&lt;p&gt;I’ve been working on a GitHub page for a local community that will be referenced by members of all levels of programming skills. The site will contain blog posts and a FAQ page. The blog posts and FAQs are to be separate from the home page. FAQ pages usually list a series of questions, each followed by an answer. Such a setup in Jekyll would normally require that I update the same page manually over and over as needed. I don’t want to do that, so I explored the possibility of maintaining a collection FAQs just like blog posts are maintained in a Jekyll blog’s &lt;a href=&quot;http://jekyllrb.com/docs/structure/&quot;&gt;default setup&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Since I wanted blog posts and FAQs to be listed on separate pages I made two new folders, &lt;span style='font-style: italic;'&gt;blog&lt;/span&gt; and &lt;span style='font-style: italic;'&gt;faq&lt;/span&gt;. In each folder, I include an index page and a folder named &lt;span style='font-style: italic;'&gt;_ posts&lt;/span&gt;. From this point on, I’ll explain the changes made for FAQs sake and you can assume the same goes for blog posts.&lt;/p&gt;
+&lt;p align='center' class='text-muted'&gt;&lt;img align='center' alt='directory structure screenshot' src='/img/posts/2013-12-07-Multiple-Posts-Lists/directory-structure.PNG' /&gt;&lt;br /&gt;&lt;small&gt;&lt;em&gt;&amp;#91;Directory structure of jekyll blog&amp;#93;&lt;/em&gt;&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;Inside &lt;span style='font-style: italic;'&gt;_ posts&lt;/span&gt; is where you’ll keep a file for each FAQ item. Note that the assigned layout is &lt;span style='font-style: italic;'&gt;faq_post&lt;/span&gt;, which will be explained later.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;FAQ post file:&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;&lt;pre&gt;&lt;code class='YAML'&gt;---
+layout: faq_post
+title:  &amp;quot;Is this a FAQ post?&amp;quot;
+date:   2013-12-07
+categories: jekyll update
+---
+Why, yes it is!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In order for the the FAQ index page to only list FAQ items, I needed to pull posts (not pages) with &lt;span style='font-style: italic;'&gt;faq&lt;/span&gt; as a category. This task is handled by &lt;code&gt;site.categories.faq&lt;/code&gt;. If you’re asking what &lt;code&gt;site.categories&lt;/code&gt; is, please refer to this short piece on &lt;a href=&quot;http://jekyllrb.com/docs/variables/&quot;&gt;global variables in YAML Front-matter&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;FAQ index page:&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;&lt;pre&gt;&lt;code class='YAML'&gt;---
+layout: default
+title: OKC Nerdy Girls - FAQS
+category: faq
+---
+
+&amp;lt;div id=&quot;home&quot;&amp;gt;
+  &amp;lt;h1&amp;gt;FAQs&amp;lt;/h1&amp;gt;
+  &amp;lt;ul class=&quot;posts&quot;&amp;gt;
+    &amp;#123;% for post in site.categories.faq %&amp;#125;
+    &amp;lt;li&amp;gt;&amp;lt;span&amp;gt;&amp;#123;&amp;#123; post.date | date_to_string &amp;#125;&amp;#125;&amp;lt;/span&amp;gt; &amp;raquo; &amp;lt;a href=&quot;&amp;#123;&amp;#123; post.url &amp;#125;&amp;#125;&quot;&amp;gt;&amp;#123;&amp;#123; post.title &amp;#125;&amp;#125;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+    &amp;#123;% endfor %&amp;#125;
+  &amp;lt;/ul&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Next change I made to the directory/file structure was to the _layouts folder where I split &lt;span style='font-style: italic;'&gt;post.html&lt;/span&gt; into two files, &lt;span style='font-style: italic;'&gt;blog_post.html&lt;/span&gt; and &lt;span style='font-style: italic;'&gt;faq_post.html&lt;/span&gt;. You do not need to do this unless actual the layout of blog and faq pages will differ. In my case, I wanted to keep the active navigation menu item highlighted without making sure every faq or blog post had the correct category when their layouts can manage that.&lt;/p&gt;
+&lt;p align='center' class='text-muted'&gt;&lt;img align='center' alt='post layout file list screenshot' src='/img/posts/2013-12-07-Multiple-Posts-Lists/post_layouts.PNG' /&gt;&lt;br /&gt;&lt;small&gt;&lt;em&gt;&amp;#91;Multiple post layout files for each separate list of posts&amp;#93;&lt;/em&gt;&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FAQ post layout:&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;&lt;pre&gt;&lt;code class='YAML'&gt;---
+layout: default
+category: faq
+---
+&amp;lt;h2&amp;gt;&amp;#123;&amp;#123; page.title &amp;#125;&amp;#125;&amp;lt;/h2&amp;gt;
+&amp;lt;p class=&quot;meta&quot;&amp;gt;&amp;#123;&amp;#123; page.date | date_to_string &amp;#125;&amp;#125;&amp;lt;/p&amp;gt;
+
+&amp;lt;div class=&quot;post&quot;&amp;gt;
+&amp;#123;&amp;#123; content &amp;#125;&amp;#125;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p align='center' class='text-muted'&gt;&lt;img align='center' alt='navigation pill screenshot' src='/img/posts/2013-12-07-Multiple-Posts-Lists/nav-pill-highlight.PNG' style='box-shadow: 10px 5px 5px gray;' /&gt;&lt;br /&gt;&lt;small&gt;&lt;em&gt;&amp;#91;Navigation pills highlighted based on page layout category&amp;#93;&lt;/em&gt;&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;Ideally, I would provide screenshots of the final results but the site has not yet gone live at the time of this post. The site is open sourced so you’re welcome to take a look at my &lt;a href=&quot;https://github.com/campbeja/okcnerdygirls.github.io/tree/a29efa55590b7cc064e75fb92026f41e14aeba4e&quot;&gt;committed code in GitHub&lt;/a&gt;.&lt;/p&gt;
+</description>
+                                <pubDate>Sat, 07 Dec 2013 00:00:00 -0600</pubDate>
+                                <link>http://campbeja.github.io///2013/12/07/Multiple-Posts-Lists.html</link>
+                                <guid isPermaLink="true">http://campbeja.github.io///2013/12/07/Multiple-Posts-Lists.html</guid>
+                        </item>
+                
+                        <item>
+                                <title>The Case of the Chopped Title.</title>
+                                <description>
+&lt;p&gt;One of the setbacks I had when setting up this blog was with my site title.&lt;/p&gt;
+
+&lt;p&gt;I chose to show my site title in an HTML text element instead of an image, so that I wouldn’t have to produce new images of various sizes every time I made a change to it. After making this switch, the title placement was always off somehow. The top of text was being cut off, and the social media icons were overlapping it. I set background colors for the HTML containers to help me identify layout issues.&lt;/p&gt;
+&lt;p align='center' class='text-muted'&gt;
+	&lt;img align='center' alt='title screenshot' src='/img/posts/2013-10-05-The-Case-of-the-Chopped-Title/headerScreenShot.PNG' /&gt;
+	&lt;br /&gt;
+	&lt;small&gt;&lt;em&gt;&amp;#91;Screenshot of my botched up site title&amp;#93;&lt;/em&gt;&lt;/small&gt;
+&lt;/p&gt;
+&lt;p&gt;With the blue background representing the div container and the gray background representing the text element, you can see the text is too big for its container. Normally, divs automatically size to their contents, but not in this case. I also couldn’t understand why my social media icons were over lapping the text element, but I learned later that what I was seeing was not necessarily the icons overlapping the text, but the text overflowing into other components.&lt;/p&gt;
+
+&lt;p&gt;I was baffled for a long while and in my confusion thought that I needed to relearn HTML. So I picked up &lt;a href=&quot;http://www.htmlandcssbook.com/&quot;&gt;“HTML &amp;amp; CSS: Design and Build Websites”&lt;/a&gt;, and actually learned a few new things that were introduced in HTML5. Only one thing I found in this book seemed to be a possible factor in this issue, and that was &lt;strong&gt;leading.&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Leading (pronounced &lt;em&gt;ledding&lt;/em&gt;) is a term typographers use for the vertical space between lines of text. In a typeface, the part of a letter that drops beneath the baseline is called 
+	 a descender, while the highest point of a letter is called the ascender. Leading is measured from the bottom of the descender on one line to the top of the ascender on the next.&lt;/p&gt;
+  &lt;small&gt;Jon Duckett, author of &lt;cite title='HTML &amp;#38; CSS: Design and Build Websites'&gt;HTML &amp;#38; CSS: Design and Build Websites&lt;/cite&gt;&lt;/small&gt;
+&lt;/blockquote&gt;&lt;p align='center' class='text-muted'&gt;
+	&lt;img align='center' alt='leading demo' src='/img/posts/2013-10-05-The-Case-of-the-Chopped-Title/leadingDemo.PNG' /&gt;
+	&lt;br /&gt;
+	&lt;small&gt;&lt;em&gt;&amp;#91;Image from HTML &amp;#38; CSS: Design and Build Websites&amp;#93;&lt;/em&gt;&lt;/small&gt;
+&lt;/p&gt;
+&lt;p&gt;You can’t set leading directly, but you can set font-size and line-height. The above diagram demonstrates that &lt;code&gt;leading = line-height - font-size&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Through further CSS experimentation, I found that setting the line-height for my title div was key to fixing this issue. But why was line-height necessary? I was certain that attribute shouldn’t have to be manually set.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CSS title container:&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;
+    &lt;pre&gt;&lt;code class='css'&gt;.title, .title a, .title a:hover, .title a:visited {
+	font-family: fairy_strangeregular;
+	font-weight: normal;
+	font-size: 2.25em;
+	line-height: 2.25em;
+	color: #000;
+	text-decoration: none;
+}&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;p&gt;Some of my experiments required starting over with a clean Jekyll blog setup, and those led me to find that &lt;a href=&quot;http://getbootstrap.com/&quot;&gt;Bootstrap&lt;/a&gt; was the cause of this “issue.” I say “issue” in quotes now because Bootstrap is not really to blame, but my ignorance. Turns out that Bootstrap sets a default line-height. Maybe if I had used one of their heading tags, like &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt;, I wouldn’t have had to go through all this trouble but their heading tags were not large enough for my preference in title font sizes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Bootstrap’s CSS for default line-height:&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;
+    &lt;pre&gt;&lt;code class='css'&gt;body {
+  font-family: &amp;quot;Lato&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.428571429;
+  color: #2c3e50;
+  background-color: #ffffff;
+}&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;p&gt;This concludes the case of the chopped title, and another example of why some of my headaches are self-inflicted.&lt;/p&gt;
+</description>
+                                <pubDate>Sat, 05 Oct 2013 00:00:00 -0500</pubDate>
+                                <link>http://campbeja.github.io///2013/10/05/The-Case-of-the-Chopped-Title.html</link>
+                                <guid isPermaLink="true">http://campbeja.github.io///2013/10/05/The-Case-of-the-Chopped-Title.html</guid>
+                        </item>
+                
+                        <item>
+                                <title>Links in Jekyll.</title>
+                                <description>
+&lt;p&gt;If you read my post &lt;a href=&quot;http://campbeja.github.io/2013/09/07/Jekyll-can-be-tricky-business.html&quot;&gt;“Jekyll can be tricky business”&lt;/a&gt;, then you probably noticed a broken link in my list. After a few trial-and-error tests, I’ve determined that Jekyll does not process links in HTML lists.&lt;/p&gt;
+
+&lt;p&gt;A demonstration:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;YAML code snippet:&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;&lt;pre&gt;&lt;code class='YAML'&gt;---
+layout: post
+title:  &amp;quot;Jekyll links example.&amp;quot;
+date:   2013-09-08
+---
+
+For more woeful tales of Jekyll, refer to my [Github Page][link-name].
+
+Let's reference the same link to my Github page, but in an unordered list:
+&amp;lt;ul&amp;gt;
+	&amp;lt;li&amp;gt;[Github Page][link-name]&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;
+
+One more time but in an ordered list:
+&amp;lt;ol&amp;gt;
+	&amp;lt;li&amp;gt;[Github Page][link-name]&amp;lt;/li&amp;gt;
+&amp;lt;/ol&amp;gt;
+
+[link-name]: campbeja.github.io&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For more woeful tales of Jekyll, refer to my &lt;a href=&quot;/&quot;&gt;Github Page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s reference the same link to my Github page, but in an unordered list:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;[Github Page][link-name]&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;One more time but in an ordered list:&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;[Github Page][link-name]&lt;/li&gt;&lt;/ol&gt;</description>
+                                <pubDate>Sun, 08 Sep 2013 00:00:00 -0500</pubDate>
+                                <link>http://campbeja.github.io///2013/09/08/Links-in-Jekyll.html</link>
+                                <guid isPermaLink="true">http://campbeja.github.io///2013/09/08/Links-in-Jekyll.html</guid>
+                        </item>
+                
+                        <item>
+                                <title>Jekyll can be tricky business.</title>
+                                <description>
+&lt;p&gt;When I found out that Github was hosting pages, I wanted to create a page of my own so my place on Github would be more than numbers and commit histories. Blogging is not really an interest of mine but I do try to keep track of what I’ve learned and there’s so much happening in the programming industry that it is difficult to keep track. I definitely don’t want to write a new .html file every time I had something to say, so I started looking into content management systems. I’ve worked with Wordpress and Joomla in the past, but Github pages do not support those and their &lt;a href=&quot;http://pages.github.com/&quot;&gt;documentation&lt;/a&gt; pointed me to &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Setting up my Jekyll blog was not a simple task for a few reasons:&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;Jekyll requires Ruby. Ruby doesn't play nice with Windows, which is the only brand of operating system that I use daily.&lt;/li&gt;&lt;li&gt;If you want syntax highlighting for code snippets, you will need to install [Pygments][pygments-link]. However, in my case, Pygments kept breaking Jekyll. After a couple weekends of searching, I still had no solution and chose to just discard it.&lt;/li&gt;&lt;li&gt;Jekyll doesn't support blog tags, not really. You can add a tag attribute to a post but Jekyll does nothing to link common tags.&lt;/li&gt;&lt;/ol&gt;
+&lt;p&gt;The first two issues are not fresh enough in my mind to clarify further but I can elaborate on implementing tags in Jekyll. I followed Charlie Park’s instructions in &lt;a href=&quot;http://charliepark.org/tags-in-jekyll/&quot;&gt;“Tags in Jekyll”&lt;/a&gt; and was able to display tags as links to related posts on localhost… and only localhost. Github pages do not support Jekyll plugins so pages of posts by tag are not generated on the Github server.&lt;/p&gt;
+
+&lt;p&gt;I do not have a true solution for this issue. For now, I just build this blog locally and then copy the generated tag pages to the root directory and publish the changes. It’s not ideal but it still beats writing these pages by hand.&lt;/p&gt;
+</description>
+                                <pubDate>Sat, 07 Sep 2013 00:00:00 -0500</pubDate>
+                                <link>http://campbeja.github.io///2013/09/07/Jekyll-can-be-tricky-business.html</link>
+                                <guid isPermaLink="true">http://campbeja.github.io///2013/09/07/Jekyll-can-be-tricky-business.html</guid>
+                        </item>
+                
         </channel>
 </rss>
