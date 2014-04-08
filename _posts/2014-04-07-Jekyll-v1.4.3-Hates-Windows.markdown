@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Jekyll v1.4.3 Hates Windows"
-date:   2014-03-17
+title: "Jekyll v1.4.3 Hates Windows"
+date: 2014-04-07
 tags:
 - Jekyll
 - Jekyll v1.4.3
@@ -31,9 +31,9 @@ Notice the extra <code>C:</code> in the last line? For reasons that I still don'
 how, am not familiar with Ruby, and my Google searches failed to find similar reported issues (this was back in December 2013 or January 2014.) Eventually I
 started looking at Ruby files listed in the stack trace.
 
-Inexperienced with Ruby, I managed to debug by typing print statements throughout the called methods 
+Inexperienced with Ruby, I managed to debug by typing print statements throughout the called methods
 to show values returned, modified, digitally enhanced or whatever. I was lead to Page.rb's desitination() in the Jekyll source code. Though I identified that
-it was there that the file path string was getting messed up--I didn't know how to fix it and by this point I was just fed up and focused on something else
+it was there that the file path string was getting messed up--I didn't know how to fix it and by this point I was fed up and focused on something else
 for a win.
 
 Luckily when I returned to this issue, someone else had reported this issue (see linked stackoverflow post) and [Jekyll contributors were already talking
