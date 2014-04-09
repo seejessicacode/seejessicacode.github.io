@@ -1,6 +1,7 @@
 name: See Jessica Code.
 description: See Jessica Code in a blog.
 url: http://campbeja.github.io/
+markdown: kramdown
 pygments: false
 paginate: 3
 paginate_path: "page:num"
