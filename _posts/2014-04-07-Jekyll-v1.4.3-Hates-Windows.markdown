@@ -13,19 +13,10 @@ I mentioned in a previous post that I couldn't use the latest version of Jekyll 
 I can summarize it for you.
 
 Jekyll commands:
-<pre>
-jekyll build
-jekyll serve
-</pre>
+<pre>jekyll build<br/>jekyll serve</pre>
 
 Resulted in this nonsense:
-<pre>
-C:\Users\campbeja\Projects\campbeja.github.io>jekyll build
-Configuration file: C:/Users/campbeja/Projects/campbeja.github.io/_config.yml
-            Source: C:/Users/campbeja/Projects/campbeja.github.io
-       Destination: C:/Users/campbeja/Projects/campbeja.github.io/_site
-      Generating... C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:247:in `mkdir': Invalid argument - C:/Users/campbeja/Projects/campbeja.github.io/_site/C: (Errno::EINVAL)
-</pre>
+<pre>C:\Users\campbeja\Projects\campbeja.github.io>jekyll build<br/><br/>Configuration file: C:/Users/campbeja/Projects/campbeja.github.io/_config.yml<br/><br/>Source: C:/Users/campbeja/Projects/campbeja.github.io<br/><br/>Destination: C:/Users/campbeja/Projects/campbeja.github.io/_site<br/><br/>Generating... C:/Ruby193/lib/ruby/1.9.1/fileutils.rb:247:in `mkdir': Invalid argument - C:/Users/campbeja/Projects/campbeja.github.io/_site/C: (Errno::EINVAL)</pre>
 
 Notice the extra <code>C:</code> in the last line? For reasons that I still don't fully understand, a Ruby script received an invalid file path. I had no idea
 how, am not familiar with Ruby, and my Google searches failed to find similar reported issues (this was back in December 2013 or January 2014.) Eventually I
