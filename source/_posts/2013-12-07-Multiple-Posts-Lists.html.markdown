@@ -9,7 +9,7 @@ I've been working on a GitHub page for a local community that will be referenced
 
 Since I wanted blog posts and FAQs to be listed on separate pages I made two new folders, <span style="font-style: italic;">blog</span> and <span style="font-style: italic;">faq</span>. In each folder, I include an index page and a folder named
 <span style="font-style: italic;">&#95; posts</span>. From this point on, I'll explain the changes made for FAQs sake and you can assume the same goes for blog posts.
-{% myTheme_img text-muted /img/posts/2013-12-07-Multiple-Posts-Lists/directory-structure.PNG "Directory structure of jekyll blog" "directory structure screenshot" %}
+{% img text-muted /img/posts/2013-12-07-Multiple-Posts-Lists/directory-structure.PNG "Directory structure of jekyll blog" "directory structure screenshot" %}
 
 Inside <span style="font-style: italic;">&#95; posts</span> is where you'll keep a file for each FAQ item. Note that the assigned layout is <span style="font-style: italic;">faq_post</span>, which will be explained later.
 
@@ -45,7 +45,7 @@ category: faq
 ```
 
 Next change I made to the directory/file structure was to the &#95;layouts folder where I split <span style="font-style: italic;">post.html</span> into two files, <span style="font-style: italic;">blog_post.html</span> and <span style="font-style: italic;">faq_post.html</span>. You do not need to do this unless actual the layout of blog and faq pages will differ. In my case, I wanted to keep the active navigation menu item highlighted without making sure every faq or blog post had the correct category when their layouts can manage that.
-{% myTheme_img text-muted /img/posts/2013-12-07-Multiple-Posts-Lists/post_layouts.PNG "Multiple post layout files for each separate list of posts" "post layout file list screenshot" %}
+{% img text-muted /img/posts/2013-12-07-Multiple-Posts-Lists/post_layouts.PNG "Multiple post layout files for each separate list of posts" "post layout file list screenshot" %}
 
 **FAQ post layout:**
 ```Markdown
@@ -62,7 +62,7 @@ category: faq
 ```
 
 <p class="text-muted" align="center"><img align="center" style="box-shadow: 10px 5px 5px gray;" src="/img/posts/2013-12-07-Multiple-Posts-Lists/nav-pill-highlight.PNG" alt="navigation pill screenshot" /></br><small><em>&#91;Navigation pills highlighted based on page layout category&#93;</em></small></p>
-{% myTheme_img text-muted /img/posts/2013-12-07-Multiple-Posts-Lists/nav-pill-highlight.PNG "Navigation pills highlighted based on page layout category" "navigation pill screenshot" %}
+{% img text-muted /img/posts/2013-12-07-Multiple-Posts-Lists/nav-pill-highlight.PNG "Navigation pills highlighted based on page layout category" "navigation pill screenshot" %}
 
 Ideally, I would provide screenshots of the final results but the site has not yet gone live at the time of this post. The site is open sourced so you're welcome to take a look at my [committed code in GitHub][git-commit].
 
