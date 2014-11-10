@@ -12,8 +12,8 @@ language:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com/hexoBlog
-root: /hexoBlog/
+url: http://yoursite.com/blog
+root: /blog/
 permalink: :year/:month/:day/:title/
 tag_dir: tags
 archive_dir: archives
@@ -24,6 +24,12 @@ permalink_defaults:
 # Directory
 source_dir: source
 public_dir: public
+
+#RSS feed
+feed:
+    type: atom
+    path: atom.xml
+    limit: 10
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -37,7 +43,6 @@ relative_link: false
 highlight:
   enable: true
   line_number: true
-  tab_replace:
 
 # Category & Tag
 default_category: uncategorized
@@ -74,7 +79,7 @@ per_page: 2
 pagination_dir: page
 
 # Disqus
-disqus_shortname:
+disqus_shortname: seejessicacode
 
 # Extensions
 ## Plugins: https://github.com/hexojs/hexo/wiki/Plugins

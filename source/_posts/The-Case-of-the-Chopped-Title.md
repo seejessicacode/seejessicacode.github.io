@@ -10,7 +10,7 @@ One of the setbacks I had when setting up this blog was with my site title.
 
 I chose to show my site title in an HTML text element instead of an image, so that I wouldn't have to produce new images of various sizes every time I made a change to it. After making this switch, the title placement was always off somehow. The top of text was being cut off, and the social media icons were overlapping it. I set background colors for the HTML containers to help me identify layout issues.
 
-{% img_center text-muted /hexoBlog/2013/10/05/The-Case-of-the-Chopped-Title/headerScreenShot.PNG 472 72 "title screen shot" "Screenshot of my botched up site title" %}
+{% img_center text-muted /blog/2013/10/05/The-Case-of-the-Chopped-Title/headerScreenShot.PNG 472 72 "title screen shot" "Screenshot of my botched up site title" %}
 
 With the blue background representing the div container and the gray background representing the text element, you can see the text is too big for its container. Normally, divs automatically size to their contents, but not in this case. I also couldn't understand why my social media icons were over lapping the text element, but I learned later that what I was seeing was not necessarily the icons overlapping the text, but the text overflowing into other components.
 
@@ -20,7 +20,7 @@ I was baffled for a long while and in my confusion thought that I needed to rele
 > a descender, while the highest point of a letter is called the ascender. Leading is measured from the bottom of the descender on one line to the top of the ascender on the next.
 > Jon Duckett, author of <cite title="HTML &#38; CSS: Design and Build Websites">HTML &#38; CSS: Design and Build Websites
 
-{% img_center text-muted /hexoBlog/2013/10/05/The-Case-of-the-Chopped-Title/leadingDemo.PNG "leading demo" "Image from HTML &#38; CSS: Design and Build Websites" %}
+{% img_center text-muted /blog/2013/10/05/The-Case-of-the-Chopped-Title/leadingDemo.PNG "leading demo" "Image from HTML &#38; CSS: Design and Build Websites" %}
 
 You can't set leading directly, but you can set font-size and line-height. The above diagram demonstrates that <code>leading = line-height - font-size</code>.
 
