@@ -91,5 +91,5 @@ exclude_generator:
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: github
-  repository: https://github.com/campbeja/hexoBlog.git
-  branch: gh-pages
+  repository: https://github.com/campbeja/campbeja.github.io.git
+  branch: master
