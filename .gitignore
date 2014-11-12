@@ -1,1 +1,11 @@
+<<<<<<< HEAD
 _site
+=======
+.DS_Store
+Thumbs.db
+db.json
+debug.log
+node_modules/
+public/
+.deploy/
+>>>>>>> 06c4586940a0b5ccf9b0815d0580762b099bc097
