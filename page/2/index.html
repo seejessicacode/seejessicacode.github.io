@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>See Jessica Code</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/bootstrap.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/main.css" type="text/css">
+
+  <script src="/js/jquery-1.9.1.js" type="text/javascript"></script>
+
+  <script src="/js/bootstrap.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <header id="header">
+  <div class="sitetitle row" style="text-align:center;">
+		<a href="/">See Jessica Code</a>
+	</div>
+  <div class="row" style="text-align:center;margin-bottom:20px;">
+		<span class="icon">
+			<a href="mailto:jesslyn.campbell@gmail.com"><img src="/img/email/mail_32x32.png" alt="email"></a>
+		</span>
+		<span class="icon">
+			<a href="http://github.com/campbeja"><img src="/img/git/github_32x32.png" alt="git"></a>
+		</span>
+		<span class="icon">
+			<a href="http://plus.google.com/u/0/100388400004290019542/"><img src="/img/gplus/google-plus_32x32.png" alt="gplus"></a>
+		</span>
+		<span class="icon">
+			<a href="http://twitter.com/SeeJessicaCode"><img src="/img/twitter/twitter_32x32.png" alt="twitter"></a>
+		</span>
+		<span class="icon">
+			<a href="http://stackoverflow.com/users/418888/jesslyn"><img src="/img/so/stackoverflow_32x32.png" alt="so"></a>
+		</span>
+	</div>
+</header>
+
+    <div class="row">
+			<div class="col-md-3">
+				<div align="center">
+					<img src="http://www.gravatar.com/avatar/a11c27620903759685d1bda7dadc03b8?s=200" class="img-rounded" alt="avatar" />
+				</div>
+				<h4>About me:</h4>
+				<p>I am a .Net developer by day and a bookworm by night. My wife, Collin, is a starving artist and is designing a board game. We have two cats named Katy and Lottie, they're tuxedo cats so they are always dressed for formal affairs.</p>
+				<p class="text-warning">Sorry, I am not for hire.</p>
+				<span><a href="/atom.xml"><img src="/img/rss/rss_16x16.png" alt="rss"> RSS feed</a></span>
+			</div>
+			<div class="col-md-9">
+				
+  
+    <article id="post-Multiple-Posts-Lists" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      
+        <header class="article-header">
+          
+  
+    <h2>
+      <a href="/2013/12/07/Multiple-Posts-Lists/">Maintaining Multiple Post Lists in Jekyll.</a>
+    </h2>
+  
+
+
+          <p class="author">
+  <span class="date">
+    <time datetime="2013-12-07T06:00:00.000Z" itemprop="datePublished">
+      Dec 7 2013
+    </time>
+  </span>
+</p>
+
+        </header>
+      
+      <div class="article-entry" itemprop="articleBody">
+        
+          <p>I’ve been working on a GitHub page for a local community that will be referenced by members of all levels of programming skills. The site will contain blog posts and a FAQ page. The blog posts and FAQs are to be separate from the home page. FAQ pages usually list a series of questions, each followed by an answer. Such a setup in Jekyll would normally require that I update the same page manually over and over as needed. I don’t want to do that, so I explored the possibility of maintaining a collection FAQs just like blog posts are maintained in a Jekyll blog’s <a href="http://jekyllrb.com/docs/structure/" target="_blank" rel="external">default setup</a>.</p>
+<p>Since I wanted blog posts and FAQs to be listed on separate pages I made two new folders, <span style="font-style: italic;">blog</span> and <span style="font-style: italic;">faq</span>. In each folder, I include an index page and a folder named<br><span style="font-style: italic;">&#95; posts</span>. From this point on, I’ll explain the changes made for FAQs sake and you can assume the same goes for blog posts.</p>
+<p class="text-muted" align="center"><img src="/2013/12/07/Multiple-Posts-Lists/directory-structure.PNG" alt="directory structure screenshot"><br><small><em>[Directory structure of jekyll blog]</em></small></p>
+
+<p>Inside <span style="font-style: italic;">&#95; posts</span> is where you’ll keep a file for each FAQ item. Note that the assigned layout is <span style="font-style: italic;">faq_post</span>, which will be explained later.</p>
+<p><strong>FAQ post file:</strong></p>
+<figure class="highlight Markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="horizontal_rule">---</span></div><div class="line">layout: faq_post</div><div class="line">title:  &quot;Is this a FAQ post?&quot;</div><div class="line">date:   2013-12-07</div><div class="line"><span class="header">categories: jekyll update</span></div><div class="line">---</div><div class="line">Why, yes it is!</div></pre></td></tr></table></figure>
+
+<p>In order for the the FAQ index page to only list FAQ items, I needed to pull posts (not pages) with <span style="font-style: italic;">faq</span> as a category. This task is handled by <code>site.categories.faq</code>. If you’re asking what <code>site.categories</code> is, please refer to this short piece on <a href="http://jekyllrb.com/docs/variables/" target="_blank" rel="external">global variables in YAML Front-matter</a>.</p>
+<p><strong>FAQ index page:</strong></p>
+<figure class="highlight Markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="horizontal_rule">---</span></div><div class="line">layout: default</div><div class="line">title: OKC Nerdy Girls - FAQS</div><div class="line"><span class="header">category: faq</span></div><div class="line">---</div><div class="line">&nbsp;</div><div class="line">&lt;div id="home"&gt;</div><div class="line">  &lt;h1&gt;FAQs&lt;/h1&gt;</div><div class="line">  &lt;ul class="posts"&gt;</div><div class="line"><span class="code">    &#123;% for post in site.categories.faq %&#125;</span></div><div class="line"><span class="code">    &lt;li&gt;&lt;span&gt;&#123;&#123; post.date | date_to_string &#125;&#125;&lt;/span&gt; &raquo; &lt;a href="&#123;&#123; post.url &#125;&#125;"&gt;&#123;&#123; post.title &#125;&#125;&lt;/a&gt;&lt;/li&gt;</span></div><div class="line"><span class="code">    &#123;% endfor %&#125;</span></div><div class="line">  &lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+
+<p>Next change I made to the directory/file structure was to the &#95;layouts folder where I split <span style="font-style: italic;">post.html</span> into two files, <span style="font-style: italic;">blog_post.html</span> and <span style="font-style: italic;">faq_post.html</span>. You do not need to do this unless actual the layout of blog and faq pages will differ. In my case, I wanted to keep the active navigation menu item highlighted without making sure every faq or blog post had the correct category when their layouts can manage that.</p>
+<p class="text-muted" align="center"><img src="/2013/12/07/Multiple-Posts-Lists/post_layouts.PNG" alt="post layout file list screenshot"><br><small><em>[Multiple post layout files for each separate list of posts]</em></small></p>
+
+<p><strong>FAQ post layout:</strong></p>
+<figure class="highlight Markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="horizontal_rule">---</span></div><div class="line">layout: default</div><div class="line"><span class="header">category: faq</span></div><div class="line">---</div><div class="line">&lt;h2&gt;&#123;&#123; page.title &#125;&#125;&lt;/h2&gt;</div><div class="line">&lt;p class="meta"&gt;&#123;&#123; page.date | date<span class="emphasis">_to_</span>string &#125;&#125;&lt;/p&gt;</div><div class="line">&nbsp;</div><div class="line">&lt;div class="post"&gt;</div><div class="line">&#123;&#123; content &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+
+<p class="text-muted" align="center"><img style="box-shadow: 10px 5px 5px gray;" src="/2013/12/07/Multiple-Posts-Lists/nav-pill-highlight.PNG" alt="navigation pill screenshot"><br><small><em>[Navigation pills highlighted based on page layout category]</em></small></p>
+
+<p>Ideally, I would provide screenshots of the final results but the site has not yet gone live at the time of this post. The site is open sourced so you’re welcome to take a look at my <a href="https://github.com/campbeja/okcnerdygirls.github.io/tree/a29efa55590b7cc064e75fb92026f41e14aeba4e" target="_blank" rel="external">committed code in GitHub</a>.</p>
+
+        
+      </div>
+    </div>
+    <div class="panel-footer" style="text-align:right;">
+  		
+  
+    <a class="label label-default" href="/tags/jekyll/">jekyll</a>
+  
+
+
+  	</div>
+  </div>
+  
+</article>
+
+  
+    <article id="post-The-Case-of-the-Chopped-Title" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      
+        <header class="article-header">
+          
+  
+    <h2>
+      <a href="/2013/10/05/The-Case-of-the-Chopped-Title/">The Case of the Chopped Title.</a>
+    </h2>
+  
+
+
+          <p class="author">
+  <span class="date">
+    <time datetime="2013-10-05T05:00:00.000Z" itemprop="datePublished">
+      Oct 5 2013
+    </time>
+  </span>
+</p>
+
+        </header>
+      
+      <div class="article-entry" itemprop="articleBody">
+        
+          <p>One of the setbacks I had when setting up this blog was with my site title.</p>
+<p>I chose to show my site title in an HTML text element instead of an image, so that I wouldn’t have to produce new images of various sizes every time I made a change to it. After making this switch, the title placement was always off somehow. The top of text was being cut off, and the social media icons were overlapping it. I set background colors for the HTML containers to help me identify layout issues.</p>
+<p class="text-muted" align="center"><img src="/2013/10/05/The-Case-of-the-Chopped-Title/headerScreenShot.PNG" width="472" height="72" alt="title screen shot"><br><small><em>[Screenshot of my botched up site title]</em></small></p>
+
+<p>With the blue background representing the div container and the gray background representing the text element, you can see the text is too big for its container. Normally, divs automatically size to their contents, but not in this case. I also couldn’t understand why my social media icons were over lapping the text element, but I learned later that what I was seeing was not necessarily the icons overlapping the text, but the text overflowing into other components.</p>
+<p>I was baffled for a long while and in my confusion thought that I needed to relearn HTML. So I picked up <a href="http://www.htmlandcssbook.com/" target="_blank" rel="external">“HTML &amp; CSS: Design and Build Websites”</a>, and actually learned a few new things that were introduced in HTML5. Only one thing I found in this book seemed to be a possible factor in this issue, and that was <strong>leading.</strong></p>
+<blockquote>
+<p>Leading (pronounced <em>ledding</em>) is a term typographers use for the vertical space between lines of text. In a typeface, the part of a letter that drops beneath the baseline is called<br>a descender, while the highest point of a letter is called the ascender. Leading is measured from the bottom of the descender on one line to the top of the ascender on the next.<br>Jon Duckett, author of <cite title="HTML &#38; CSS: Design and Build Websites">HTML &#38; CSS: Design and Build Websites</cite></p>
+</blockquote>
+<p class="text-muted" align="center"><img src="/2013/10/05/The-Case-of-the-Chopped-Title/leadingDemo.PNG" alt="leading demo"><br><small><em>[Image from HTML &#38; CSS: Design and Build Websites]</em></small></p>
+
+<p>You can’t set leading directly, but you can set font-size and line-height. The above diagram demonstrates that <code>leading = line-height - font-size</code>.</p>
+<p>Through further CSS experimentation, I found that setting the line-height for my title div was key to fixing this issue. But why was line-height necessary? I was certain that attribute shouldn’t have to be manually set.</p>
+<p><strong>CSS title container</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class">.title</span>, <span class="class">.title</span> <span class="tag">a</span>, <span class="class">.title</span> <span class="tag">a</span><span class="pseudo">:hover</span>, <span class="class">.title</span> <span class="tag">a</span><span class="pseudo">:visited</span> <span class="rules">{</span></div><div class="line">	<span class="rule"><span class="attribute">font-family</span>:<span class="value"> fairy_strangeregular</span></span>;</div><div class="line">	<span class="rule"><span class="attribute">font-weight</span>:<span class="value"> normal</span></span>;</div><div class="line">	<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">2.25em</span></span></span>;</div><div class="line">	<span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">2.25em</span></span></span>;</div><div class="line">	<span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#000</span></span></span>;</div><div class="line">	<span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;</div><div class="line"><span class="rule">}</span></div></pre></td></tr></table></figure>
+
+<p>Some of my experiments required starting over with a clean Jekyll blog setup, and those led me to find that <a href="http://getbootstrap.com/" target="_blank" rel="external">Bootstrap</a> was the cause of this “issue.” I say “issue” in quotes now because Bootstrap is not really to blame, but my ignorance. Turns out that Bootstrap sets a default line-height. Maybe if I had used one of their heading tags, like <code>&#60;h1&#62;</code>, I wouldn’t have had to go through all this trouble but their heading tags were not large enough for my preference in title font sizes.</p>
+<p><strong>Bootstrap’s CSS for default line-height</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">body</span> <span class="rules">{</span></div><div class="line">  <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">"Lato"</span>, <span class="string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif</span></span>;</div><div class="line">  <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">15px</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">1.428571429</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#2c3e50</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#ffffff</span></span></span>;</div><div class="line"><span class="rule">}</span></div></pre></td></tr></table></figure>
+
+<p>This concludes the case of the chopped title, and another example of why some of my headaches are self-inflicted.</p>
+
+        
+      </div>
+    </div>
+    <div class="panel-footer" style="text-align:right;">
+  		
+  
+    <a class="label label-default" href="/tags/css/">css</a>
+  
+    <a class="label label-default" href="/tags/bootstrap/">bootstrap</a>
+  
+
+
+  	</div>
+  </div>
+  
+</article>
+
+  
+  
+    <!-- Pagination links -->
+<div>
+  <ul class="pager">
+  
+    <li class="previous"><a href="/">&larr; Newer</a></li>
+  
+  <span class="page_number" style="padding: 5px 14px;">Page 2 of 3</span>
+  
+    <li class="next"><a href="/page/3/">Older &rarr;</a></li>
+  
+  </ul>
+</div>
+
+  
+
+
+
+			</div>
+		</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>The Case of the Chopped Title. | See Jessica Code</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/bootstrap.css" type="text/css">
+
+  <link rel="stylesheet" href="/css/main.css" type="text/css">
+
+  <script src="/js/jquery-1.9.1.js" type="text/javascript"></script>
+
+  <script src="/js/bootstrap.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <header id="header">
+  <div class="sitetitle row" style="text-align:center;">
+		<a href="/">See Jessica Code</a>
+	</div>
+  <div class="row" style="text-align:center;margin-bottom:20px;">
+		<span class="icon">
+			<a href="mailto:jesslyn.campbell@gmail.com"><img src="/img/email/mail_32x32.png" alt="email"></a>
+		</span>
+		<span class="icon">
+			<a href="http://github.com/campbeja"><img src="/img/git/github_32x32.png" alt="git"></a>
+		</span>
+		<span class="icon">
+			<a href="http://plus.google.com/u/0/100388400004290019542/"><img src="/img/gplus/google-plus_32x32.png" alt="gplus"></a>
+		</span>
+		<span class="icon">
+			<a href="http://twitter.com/SeeJessicaCode"><img src="/img/twitter/twitter_32x32.png" alt="twitter"></a>
+		</span>
+		<span class="icon">
+			<a href="http://stackoverflow.com/users/418888/jesslyn"><img src="/img/so/stackoverflow_32x32.png" alt="so"></a>
+		</span>
+	</div>
+</header>
+
+    <div class="row">
+			<div class="col-md-3">
+				<div align="center">
+					<img src="http://www.gravatar.com/avatar/a11c27620903759685d1bda7dadc03b8?s=200" class="img-rounded" alt="avatar" />
+				</div>
+				<h4>About me:</h4>
+				<p>I am a .Net developer by day and a bookworm by night. My wife, Collin, is a starving artist and is designing a board game. We have two cats named Katy and Lottie, they're tuxedo cats so they are always dressed for formal affairs.</p>
+				<p class="text-warning">Sorry, I am not for hire.</p>
+				<span><a href="/atom.xml"><img src="/img/rss/rss_16x16.png" alt="rss"> RSS feed</a></span>
+			</div>
+			<div class="col-md-9">
+				<article id="post-The-Case-of-the-Chopped-Title" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      
+        <header class="article-header">
+          
+  
+    <h2>
+      The Case of the Chopped Title.
+    </h2>
+  
+
+
+          <p class="author">
+  <span class="date">
+    <time datetime="2013-10-05T05:00:00.000Z" itemprop="datePublished">
+      Oct 5 2013
+    </time>
+  </span>
+</p>
+
+        </header>
+      
+      <div class="article-entry" itemprop="articleBody">
+        
+          <p>One of the setbacks I had when setting up this blog was with my site title.</p>
+<p>I chose to show my site title in an HTML text element instead of an image, so that I wouldn’t have to produce new images of various sizes every time I made a change to it. After making this switch, the title placement was always off somehow. The top of text was being cut off, and the social media icons were overlapping it. I set background colors for the HTML containers to help me identify layout issues.</p>
+<p class="text-muted" align="center"><img src="/2013/10/05/The-Case-of-the-Chopped-Title/headerScreenShot.PNG" width="472" height="72" alt="title screen shot"><br><small><em>[Screenshot of my botched up site title]</em></small></p>
+
+<p>With the blue background representing the div container and the gray background representing the text element, you can see the text is too big for its container. Normally, divs automatically size to their contents, but not in this case. I also couldn’t understand why my social media icons were over lapping the text element, but I learned later that what I was seeing was not necessarily the icons overlapping the text, but the text overflowing into other components.</p>
+<p>I was baffled for a long while and in my confusion thought that I needed to relearn HTML. So I picked up <a href="http://www.htmlandcssbook.com/" target="_blank" rel="external">“HTML &amp; CSS: Design and Build Websites”</a>, and actually learned a few new things that were introduced in HTML5. Only one thing I found in this book seemed to be a possible factor in this issue, and that was <strong>leading.</strong></p>
+<blockquote>
+<p>Leading (pronounced <em>ledding</em>) is a term typographers use for the vertical space between lines of text. In a typeface, the part of a letter that drops beneath the baseline is called<br>a descender, while the highest point of a letter is called the ascender. Leading is measured from the bottom of the descender on one line to the top of the ascender on the next.<br>Jon Duckett, author of <cite title="HTML &#38; CSS: Design and Build Websites">HTML &#38; CSS: Design and Build Websites</cite></p>
+</blockquote>
+<p class="text-muted" align="center"><img src="/2013/10/05/The-Case-of-the-Chopped-Title/leadingDemo.PNG" alt="leading demo"><br><small><em>[Image from HTML &#38; CSS: Design and Build Websites]</em></small></p>
+
+<p>You can’t set leading directly, but you can set font-size and line-height. The above diagram demonstrates that <code>leading = line-height - font-size</code>.</p>
+<p>Through further CSS experimentation, I found that setting the line-height for my title div was key to fixing this issue. But why was line-height necessary? I was certain that attribute shouldn’t have to be manually set.</p>
+<p><strong>CSS title container</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class">.title</span>, <span class="class">.title</span> <span class="tag">a</span>, <span class="class">.title</span> <span class="tag">a</span><span class="pseudo">:hover</span>, <span class="class">.title</span> <span class="tag">a</span><span class="pseudo">:visited</span> <span class="rules">{</span></div><div class="line">	<span class="rule"><span class="attribute">font-family</span>:<span class="value"> fairy_strangeregular</span></span>;</div><div class="line">	<span class="rule"><span class="attribute">font-weight</span>:<span class="value"> normal</span></span>;</div><div class="line">	<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">2.25em</span></span></span>;</div><div class="line">	<span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">2.25em</span></span></span>;</div><div class="line">	<span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#000</span></span></span>;</div><div class="line">	<span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;</div><div class="line"><span class="rule">}</span></div></pre></td></tr></table></figure>
+
+<p>Some of my experiments required starting over with a clean Jekyll blog setup, and those led me to find that <a href="http://getbootstrap.com/" target="_blank" rel="external">Bootstrap</a> was the cause of this “issue.” I say “issue” in quotes now because Bootstrap is not really to blame, but my ignorance. Turns out that Bootstrap sets a default line-height. Maybe if I had used one of their heading tags, like <code>&#60;h1&#62;</code>, I wouldn’t have had to go through all this trouble but their heading tags were not large enough for my preference in title font sizes.</p>
+<p><strong>Bootstrap’s CSS for default line-height</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">body</span> <span class="rules">{</span></div><div class="line">  <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">"Lato"</span>, <span class="string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif</span></span>;</div><div class="line">  <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">15px</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">1.428571429</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#2c3e50</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#ffffff</span></span></span>;</div><div class="line"><span class="rule">}</span></div></pre></td></tr></table></figure>
+
+<p>This concludes the case of the chopped title, and another example of why some of my headaches are self-inflicted.</p>
+
+        
+      </div>
+    </div>
+    <div class="panel-footer" style="text-align:right;">
+  		
+  
+    <a class="label label-default" href="/tags/css/">css</a>
+  
+    <a class="label label-default" href="/tags/bootstrap/">bootstrap</a>
+  
+
+
+  	</div>
+  </div>
+  
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'seejessicacode'; // required: replace example with your forum shortname
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+</article>
+
+			</div>
+		</div>
+  </div>
+</body>
+</html>

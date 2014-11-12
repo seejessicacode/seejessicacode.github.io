@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[See Jessica Code]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://yoursite.com/"/>
+  <updated>2014-11-12T02:34:43.494Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name><![CDATA[Jessica Campbell]]></name>
+    
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Jekyll v1.4.3 Hates Windows.]]></title>
+    <link href="http://yoursite.com/2014/04/07/Jekyll-v1.4.3-Hates-Windows/"/>
+    <id>http://yoursite.com/2014/04/07/Jekyll-v1.4.3-Hates-Windows/</id>
+    <published>2014-04-07T05:00:00.000Z</published>
+    <updated>2014-11-12T02:20:03.000Z</updated>
+    <content type="html"><![CDATA[<p>I mentioned in a previous post that I couldn’t use the latest version of Jekyll (v1.4.3 at the time of this post) and included a reference to a <a href="http://stackoverflow.com/questions/21137096/jekyll-error-running-jekyll-serve#" target="_blank" rel="external">stackoverflow post</a>. While what I have to say is nothing you wouldn’t be able to find out on your own by following that thread, maybe I can summarize it for you.</p>
+<p>Jekyll commands:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">jekyll build</div><div class="line">jekyll serve</div></pre></td></tr></table></figure>
+
+<p>Resulted in this nonsense:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">C:\Users\campbeja\Projects\campbeja.github.io&gt;jekyll build</div><div class="line">&nbsp;</div><div class="line">Configuration file: C:/Users/campbeja/Projects/campbeja.github.io/_config.yml</div><div class="line">&nbsp;</div><div class="line">Source: C:/Users/campbeja/Projects/campbeja.github.io</div><div class="line">&nbsp;</div><div class="line">Destination: C:/Users/campbeja/Projects/campbeja.github.io/_site</div><div class="line">&nbsp;</div><div class="line">Generating... C:/Ruby193/lib/ruby/<span class="number">1.9</span>.<span class="number">1</span>/fileutils.rb:<span class="number">247</span>:<span class="keyword">in</span> `mkdir<span class="string">': Invalid argument - C:/Users/campbeja/Projects/campbeja.github.io/_site/C: (Errno::EINVAL)</span></div></pre></td></tr></table></figure>
+
+<p>Notice the extra <code>C:</code> in the last line? For reasons that I still don’t fully understand, a Ruby script received an invalid file path. I had no idea how, am not familiar with Ruby, and my Google searches failed to find similar reported issues (this was back in December 2013 or January 2014.) Eventually I started looking at Ruby files listed in the stack trace.</p>
+<p>Inexperienced with Ruby, I managed to debug by typing print statements throughout the called methods to show values returned, modified, digitally enhanced or whatever. I was lead to Page.rb’s desitination() in the Jekyll source code. Though I identified that it was there that the file path string was getting messed up—I didn’t know how to fix it and by this point I was fed up and focused on something else for a win.</p>
+<p>Luckily when I returned to this issue, someone else had reported this issue (see linked stackoverflow post) and <a href="https://github.com/jekyll/jekyll/issues/1948" target="_blank" rel="external">Jekyll contributors were already talking about it</a>.</p>
+<p>Looks like Windows users will have to stick with version 1.4.2 until Jekyll v2.0.0 is out.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>I mentioned in a previous post that I couldn’t use the latest version of Jekyll (v1.4.3 at the time of this post) and included a referenc]]>
+    </summary>
+    
+      <category term="jekyll" scheme="http://yoursite.com/tags/jekyll/"/>
+    
+      <category term="jekyll v1.4.3" scheme="http://yoursite.com/tags/jekyll-v143/"/>
+    
+      <category term="windows" scheme="http://yoursite.com/tags/windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Jekyll Fails to Find Closing Tags in Markup.]]></title>
+    <link href="http://yoursite.com/2014/02/04/Jekyll-Fails-to-Find-Closing-Tags-in-Markup/"/>
+    <id>http://yoursite.com/2014/02/04/Jekyll-Fails-to-Find-Closing-Tags-in-Markup/</id>
+    <published>2014-02-04T06:00:00.000Z</published>
+    <updated>2014-11-12T02:20:03.000Z</updated>
+    <content type="html"><![CDATA[<p>As I was adding RSS feed to this blog, I ran into some trouble. Although the my efforts were successful on both master and development branches, my success was limited to my local machine. When I tried to push my changes to GitHub, I received the following build error:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The file `_posts/<span class="number">2013</span>-<span class="number">09</span>-<span class="number">07</span>-Jekyll-can-be-tricky-business.markdown` contains markdown errors</div></pre></td></tr></table></figure>
+
+<p>Not only couldn’t I reproduce this error locally, but the post in question was published successfully without issue or changes to it since it was published! Since I couldn’t reproduce this error locally, I could not get a stack trace. Even rolling back my changes didn’t get rid of this error, so after reading <a href="https://help.github.com/articles/pages-don-t-build-unable-to-run-jekyll#viewing-build-error-messages" target="_blank" rel="external">GitHub’s support documentation</a> with no help, I contacted GitHub support to request a stack trace.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"> ___________________________________________________________________________</div><div class="line">| Maruku tells you:</div><div class="line">+---------------------------------------------------------------------------</div><div class="line">| Malformed HTML starting at <span class="string">"&lt;ol&gt;"</span></div><div class="line">| ---------------------------------------------------------------------------</div><div class="line">| &lt;ol&gt;EOF</div><div class="line">| |---------------------------------------------------------------------------</div><div class="line">| +--- Byte <span class="number">0</span></div><div class="line">| Shown bytes [<span class="number">0</span> to <span class="number">4</span>] of <span class="number">4</span>:</div><div class="line">| &gt;&lt;ol&gt;</div><div class="line">|</div><div class="line">| At line <span class="number">7</span></div><div class="line">|       text     |I<span class="string">'ve worked with Wordpress and Joomla in the past, but Github pages do not support those and their &#91;documentation&#93;&#91;github-pages&#93; pointed me to &#91;Jekyll&#93;&#91;jekyll&#93;.|</span></div><div class="line">|      empty     ||</div><div class="line">|       text     |Setting up my Jekyll blog was not a simple task for a few reasons:|</div><div class="line">|   raw_html --&gt; |&lt;ol&gt;|</div><div class="line">|       code     |      &lt;li&gt;Jekyll requires Ruby. Ruby doesn't play nice with Windows, which is the only brand of operating system that I use daily.&lt;/li&gt;|</div><div class="line">|       code     |      &lt;li&gt;If you want syntax highlighting <span class="keyword">for</span> code snippets, you will need to install &<span class="comment">#91;Pygments&#93;&#91;pygments-link&#93;. However, in my case, Pygments kept breaking Jekyll. |</span></div><div class="line">|       code     |      After a couple weekends of searching, I still had no solution and chose to just discard it.&lt;/li&gt;|</div><div class="line"> ___________________________________________________________________________</div><div class="line">| Maruku tells you:</div><div class="line">+---------------------------------------------------------------------------</div><div class="line">| Maruku cannot parse this block of HTML/XML:</div><div class="line">| |&lt;ol&gt;</div><div class="line">| &<span class="comment">#35;&lt;REXML::ParseException: Missing end tag for 'ol' (got "html")</span></div><div class="line">| Line: <span class="number">4</span></div><div class="line">| Position: <span class="number">163</span></div><div class="line">| ...</div><div class="line">| Missing end tag <span class="keyword">for</span> <span class="string">'ol'</span> (got <span class="string">"html"</span>)</div><div class="line">| Line: <span class="number">4</span></div><div class="line">| Position: <span class="number">163</span></div><div class="line">| Last <span class="number">80</span> unconsumed characters:</div><div class="line">|</div><div class="line">| Line: <span class="number">4</span></div><div class="line">| Position: <span class="number">163</span></div><div class="line">\___________________________________________________________________________</div></pre></td></tr></table></figure>
+
+<p>As I looked at my source code, I clearly had an end tag for my &lt;ol&gt; list. Even with the stack trace, I still couldn’t duplicate the error on my personal machine, preventing me from viewing the results of my experiments.</p>
+<p>One of my attempts to fix my GitHub repo’s build error was to delete the entire repo and try again, a relatively extreme action. This idea was bad because it lost my commit history which would have proved that this error appeared seemingly out of nowhere—so now I am just a crazy person. What gave me this idea came from a past issue that remains unexplained. When writing one of my earlier posts, Jekyll couldn’t build my site due to a markdown error I could not find even with the stack trace, file name, and line number. Running out of ideas, I created another Jekyll site and replaced the contents with those from my site and everything built and displayed without issue. Since GitHub only allows one <a href="https://help.github.com/articles/user-organization-and-project-pages" target="_blank" rel="external">user page</a> per account (I assumed I’d run into other hiccups if I tried project pages, but I should’ve done that before deleting a repo), I deleted my repo and made it again, but the build error remained.</p>
+<p>Eventually, I tried building my site from work. I already had Jekyll installed but never really used it, because we don’t use it at work, and I’m supposed to be… working. I needed a mental break from a project, so I cloned my broken site and built it -or tried to- because I had finally duplicated repo server’s build error! The version of Windows 7 and Ruby are the same as my personal machine but my work machine is running Jekyll v1.2.1, while I have v1.4.2 at home and GitHub as v1.4.3.</p>
+<p>Finally being able to duplicate the build error, I came to learn that Jekyll could no longer identify a closing tag a for list or list item if it is not on the same line as its opening tag.</p>
+<p>So instead of writing an HTML list like a normal person:</p>
+<figure class="highlight HTML"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">ol</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>List item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">li</span>&gt;</span>List item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">ol</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>You have to write an HTML list like a goober:</p>
+<figure class="highlight HTML"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">ol</span>&gt;</span><span class="tag">&lt;<span class="title">li</span>&gt;</span>List item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">li</span>&gt;</span>List item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span><span class="tag">&lt;/<span class="title">ol</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>If you look at my <a href="https://raw.github.com/campbeja/campbeja.github.io/dev/_posts/2014-02-04-Jekyll-Fails-to-Find-Closing-Tags-in-Markup.markdown" target="_blank" rel="external">source code</a> for this blog post, you’ll see I couldn’t even do <code>&#123;&#37; highlight HTML &#37;&#125; … &#123;&#37; endhighlight &#37;&#125;</code> as advertised in <a href="http://jekyllrb.com/docs/posts/" target="_blank" rel="external">Jekyll’s post documentation</a> because the end result will be HTML div, pre, and code tags that do not begin and end on the same line.</p>
+<p>This odd behavior does not appear to apply to &lt;p&gt;, &lt;blockquotes&gt;, or Jekyll v1.4.2 (an older version I had to install for <a href="http://stackoverflow.com/questions/21137096/jekyll-error-running-jekyll-serve#" target="_blank" rel="external">other issues</a> I intend to share later.)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>As I was adding RSS feed to this blog, I ran into some trouble. Although the my efforts were successful on both master and development br]]>
+    </summary>
+    
+      <category term="jekyll" scheme="http://yoursite.com/tags/jekyll/"/>
+    
+      <category term="jekyll v1.4.3" scheme="http://yoursite.com/tags/jekyll-v143/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Maintaining Multiple Post Lists in Jekyll.]]></title>
+    <link href="http://yoursite.com/2013/12/07/Multiple-Posts-Lists/"/>
+    <id>http://yoursite.com/2013/12/07/Multiple-Posts-Lists/</id>
+    <published>2013-12-07T06:00:00.000Z</published>
+    <updated>2014-11-12T02:20:03.000Z</updated>
+    <content type="html"><![CDATA[<p>I’ve been working on a GitHub page for a local community that will be referenced by members of all levels of programming skills. The site will contain blog posts and a FAQ page. The blog posts and FAQs are to be separate from the home page. FAQ pages usually list a series of questions, each followed by an answer. Such a setup in Jekyll would normally require that I update the same page manually over and over as needed. I don’t want to do that, so I explored the possibility of maintaining a collection FAQs just like blog posts are maintained in a Jekyll blog’s <a href="http://jekyllrb.com/docs/structure/" target="_blank" rel="external">default setup</a>.</p>
+<p>Since I wanted blog posts and FAQs to be listed on separate pages I made two new folders, <span style="font-style: italic;">blog</span> and <span style="font-style: italic;">faq</span>. In each folder, I include an index page and a folder named<br><span style="font-style: italic;">&#95; posts</span>. From this point on, I’ll explain the changes made for FAQs sake and you can assume the same goes for blog posts.</p>
+<p class="text-muted" align="center"><img src="/2013/12/07/Multiple-Posts-Lists/directory-structure.PNG" alt="directory structure screenshot"><br><small><em>[Directory structure of jekyll blog]</em></small></p>
+
+<p>Inside <span style="font-style: italic;">&#95; posts</span> is where you’ll keep a file for each FAQ item. Note that the assigned layout is <span style="font-style: italic;">faq_post</span>, which will be explained later.</p>
+<p><strong>FAQ post file:</strong></p>
+<figure class="highlight Markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="horizontal_rule">---</span></div><div class="line">layout: faq_post</div><div class="line">title:  &quot;Is this a FAQ post?&quot;</div><div class="line">date:   2013-12-07</div><div class="line"><span class="header">categories: jekyll update</span></div><div class="line">---</div><div class="line">Why, yes it is!</div></pre></td></tr></table></figure>
+
+<p>In order for the the FAQ index page to only list FAQ items, I needed to pull posts (not pages) with <span style="font-style: italic;">faq</span> as a category. This task is handled by <code>site.categories.faq</code>. If you’re asking what <code>site.categories</code> is, please refer to this short piece on <a href="http://jekyllrb.com/docs/variables/" target="_blank" rel="external">global variables in YAML Front-matter</a>.</p>
+<p><strong>FAQ index page:</strong></p>
+<figure class="highlight Markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="horizontal_rule">---</span></div><div class="line">layout: default</div><div class="line">title: OKC Nerdy Girls - FAQS</div><div class="line"><span class="header">category: faq</span></div><div class="line">---</div><div class="line">&nbsp;</div><div class="line">&lt;div id="home"&gt;</div><div class="line">  &lt;h1&gt;FAQs&lt;/h1&gt;</div><div class="line">  &lt;ul class="posts"&gt;</div><div class="line"><span class="code">    &#123;% for post in site.categories.faq %&#125;</span></div><div class="line"><span class="code">    &lt;li&gt;&lt;span&gt;&#123;&#123; post.date | date_to_string &#125;&#125;&lt;/span&gt; &raquo; &lt;a href="&#123;&#123; post.url &#125;&#125;"&gt;&#123;&#123; post.title &#125;&#125;&lt;/a&gt;&lt;/li&gt;</span></div><div class="line"><span class="code">    &#123;% endfor %&#125;</span></div><div class="line">  &lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+
+<p>Next change I made to the directory/file structure was to the &#95;layouts folder where I split <span style="font-style: italic;">post.html</span> into two files, <span style="font-style: italic;">blog_post.html</span> and <span style="font-style: italic;">faq_post.html</span>. You do not need to do this unless actual the layout of blog and faq pages will differ. In my case, I wanted to keep the active navigation menu item highlighted without making sure every faq or blog post had the correct category when their layouts can manage that.</p>
+<p class="text-muted" align="center"><img src="/2013/12/07/Multiple-Posts-Lists/post_layouts.PNG" alt="post layout file list screenshot"><br><small><em>[Multiple post layout files for each separate list of posts]</em></small></p>
+
+<p><strong>FAQ post layout:</strong></p>
+<figure class="highlight Markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="horizontal_rule">---</span></div><div class="line">layout: default</div><div class="line"><span class="header">category: faq</span></div><div class="line">---</div><div class="line">&lt;h2&gt;&#123;&#123; page.title &#125;&#125;&lt;/h2&gt;</div><div class="line">&lt;p class="meta"&gt;&#123;&#123; page.date | date<span class="emphasis">_to_</span>string &#125;&#125;&lt;/p&gt;</div><div class="line">&nbsp;</div><div class="line">&lt;div class="post"&gt;</div><div class="line">&#123;&#123; content &#125;&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+
+<p class="text-muted" align="center"><img style="box-shadow: 10px 5px 5px gray;" src="/2013/12/07/Multiple-Posts-Lists/nav-pill-highlight.PNG" alt="navigation pill screenshot"><br><small><em>[Navigation pills highlighted based on page layout category]</em></small></p>
+
+<p>Ideally, I would provide screenshots of the final results but the site has not yet gone live at the time of this post. The site is open sourced so you’re welcome to take a look at my <a href="https://github.com/campbeja/okcnerdygirls.github.io/tree/a29efa55590b7cc064e75fb92026f41e14aeba4e" target="_blank" rel="external">committed code in GitHub</a>.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>I’ve been working on a GitHub page for a local community that will be referenced by members of all levels of programming skills. The site]]>
+    </summary>
+    
+      <category term="jekyll" scheme="http://yoursite.com/tags/jekyll/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[The Case of the Chopped Title.]]></title>
+    <link href="http://yoursite.com/2013/10/05/The-Case-of-the-Chopped-Title/"/>
+    <id>http://yoursite.com/2013/10/05/The-Case-of-the-Chopped-Title/</id>
+    <published>2013-10-05T05:00:00.000Z</published>
+    <updated>2014-11-12T02:20:03.000Z</updated>
+    <content type="html"><![CDATA[<p>One of the setbacks I had when setting up this blog was with my site title.</p>
+<p>I chose to show my site title in an HTML text element instead of an image, so that I wouldn’t have to produce new images of various sizes every time I made a change to it. After making this switch, the title placement was always off somehow. The top of text was being cut off, and the social media icons were overlapping it. I set background colors for the HTML containers to help me identify layout issues.</p>
+<p class="text-muted" align="center"><img src="/2013/10/05/The-Case-of-the-Chopped-Title/headerScreenShot.PNG" width="472" height="72" alt="title screen shot"><br><small><em>[Screenshot of my botched up site title]</em></small></p>
+
+<p>With the blue background representing the div container and the gray background representing the text element, you can see the text is too big for its container. Normally, divs automatically size to their contents, but not in this case. I also couldn’t understand why my social media icons were over lapping the text element, but I learned later that what I was seeing was not necessarily the icons overlapping the text, but the text overflowing into other components.</p>
+<p>I was baffled for a long while and in my confusion thought that I needed to relearn HTML. So I picked up <a href="http://www.htmlandcssbook.com/" target="_blank" rel="external">“HTML &amp; CSS: Design and Build Websites”</a>, and actually learned a few new things that were introduced in HTML5. Only one thing I found in this book seemed to be a possible factor in this issue, and that was <strong>leading.</strong></p>
+<blockquote>
+<p>Leading (pronounced <em>ledding</em>) is a term typographers use for the vertical space between lines of text. In a typeface, the part of a letter that drops beneath the baseline is called<br>a descender, while the highest point of a letter is called the ascender. Leading is measured from the bottom of the descender on one line to the top of the ascender on the next.<br>Jon Duckett, author of <cite title="HTML &#38; CSS: Design and Build Websites">HTML &#38; CSS: Design and Build Websites</cite></p>
+</blockquote>
+<p class="text-muted" align="center"><img src="/2013/10/05/The-Case-of-the-Chopped-Title/leadingDemo.PNG" alt="leading demo"><br><small><em>[Image from HTML &#38; CSS: Design and Build Websites]</em></small></p>
+
+<p>You can’t set leading directly, but you can set font-size and line-height. The above diagram demonstrates that <code>leading = line-height - font-size</code>.</p>
+<p>Through further CSS experimentation, I found that setting the line-height for my title div was key to fixing this issue. But why was line-height necessary? I was certain that attribute shouldn’t have to be manually set.</p>
+<p><strong>CSS title container</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class">.title</span>, <span class="class">.title</span> <span class="tag">a</span>, <span class="class">.title</span> <span class="tag">a</span><span class="pseudo">:hover</span>, <span class="class">.title</span> <span class="tag">a</span><span class="pseudo">:visited</span> <span class="rules">{</span></div><div class="line">	<span class="rule"><span class="attribute">font-family</span>:<span class="value"> fairy_strangeregular</span></span>;</div><div class="line">	<span class="rule"><span class="attribute">font-weight</span>:<span class="value"> normal</span></span>;</div><div class="line">	<span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">2.25em</span></span></span>;</div><div class="line">	<span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">2.25em</span></span></span>;</div><div class="line">	<span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#000</span></span></span>;</div><div class="line">	<span class="rule"><span class="attribute">text-decoration</span>:<span class="value"> none</span></span>;</div><div class="line"><span class="rule">}</span></div></pre></td></tr></table></figure>
+
+<p>Some of my experiments required starting over with a clean Jekyll blog setup, and those led me to find that <a href="http://getbootstrap.com/" target="_blank" rel="external">Bootstrap</a> was the cause of this “issue.” I say “issue” in quotes now because Bootstrap is not really to blame, but my ignorance. Turns out that Bootstrap sets a default line-height. Maybe if I had used one of their heading tags, like <code>&#60;h1&#62;</code>, I wouldn’t have had to go through all this trouble but their heading tags were not large enough for my preference in title font sizes.</p>
+<p><strong>Bootstrap’s CSS for default line-height</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">body</span> <span class="rules">{</span></div><div class="line">  <span class="rule"><span class="attribute">font-family</span>:<span class="value"> <span class="string">"Lato"</span>, <span class="string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif</span></span>;</div><div class="line">  <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">15px</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">1.428571429</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#2c3e50</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#ffffff</span></span></span>;</div><div class="line"><span class="rule">}</span></div></pre></td></tr></table></figure>
+
+<p>This concludes the case of the chopped title, and another example of why some of my headaches are self-inflicted.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>One of the setbacks I had when setting up this blog was with my site title.</p>
+<p>I chose to show my site title in an HTML text element ]]>
+    </summary>
+    
+      <category term="css" scheme="http://yoursite.com/tags/css/"/>
+    
+      <category term="bootstrap" scheme="http://yoursite.com/tags/bootstrap/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Links in Jekyll.]]></title>
+    <link href="http://yoursite.com/2013/09/08/Links-in-Jekyll/"/>
+    <id>http://yoursite.com/2013/09/08/Links-in-Jekyll/</id>
+    <published>2013-09-08T05:00:00.000Z</published>
+    <updated>2014-11-12T02:20:03.000Z</updated>
+    <content type="html"><![CDATA[<p>If you read my post <a href="http://campbeja.github.io/2013/09/07/Jekyll-can-be-tricky-business.html" target="_blank" rel="external">“Jekyll can be tricky business”</a>, then you probably noticed a broken link in my list. After a few trial-and-error tests, I’ve determined that Jekyll does not process links in HTML lists.</p>
+<p>A demonstration:</p>
+<p><strong>YAML code snippet:</strong></p>
+<figure class="highlight Markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="horizontal_rule">---</span></div><div class="line">layout: post</div><div class="line">title:  &quot;Jekyll links example.&quot;</div><div class="line"><span class="header">date:   2013-09-08</span></div><div class="line">---</div><div class="line">&nbsp;</div><div class="line">For more woeful tales of Jekyll, refer to my [<span class="link_label">Github Page</span>][<span class="link_reference">link-name</span>].</div><div class="line">&nbsp;</div><div class="line">Let's reference the same link to my Github page, but in an unordered list:</div><div class="line">&lt;ul&gt;</div><div class="line"><span class="code">	&lt;li&gt;[Github Page][link-name]&lt;/li&gt;</span></div><div class="line">&lt;/ul&gt;</div><div class="line">&nbsp;</div><div class="line">One more time but in an ordered list:</div><div class="line">&lt;ol&gt;</div><div class="line"><span class="code">	&lt;li&gt;[Github Page][link-name]&lt;/li&gt;</span></div><div class="line">&lt;/ol&gt;</div><div class="line">&nbsp;</div><div class="line">[<span class="link_reference">link-name</span>]:<span class="link_url"> campbeja.github.io</span></div></pre></td></tr></table></figure>
+
+<p><strong>Output:</strong></p>
+<p>For more woeful tales of Jekyll, refer to my <a href="/">Github Page</a>.</p>
+<p>Let’s reference the same link to my Github page, but in an unordered list:</p>
+<ul><li>&#91;Github Page&#93;&#91;link-name&#93;</li></ul>
+
+<p>One more time but in an ordered list:</p>
+<ol><li>&#91;Github Page&#93;&#91;link-name&#93;</li></ol>
+
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>If you read my post <a href="http://campbeja.github.io/2013/09/07/Jekyll-can-be-tricky-business.html" target="_blank" rel="external">“Jek]]>
+    </summary>
+    
+      <category term="jekyll" scheme="http://yoursite.com/tags/jekyll/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Jekyll can be tricky business.]]></title>
+    <link href="http://yoursite.com/2013/09/07/Jekyll-can-be-tricky-business/"/>
+    <id>http://yoursite.com/2013/09/07/Jekyll-can-be-tricky-business/</id>
+    <published>2013-09-07T05:00:00.000Z</published>
+    <updated>2014-11-12T02:20:03.000Z</updated>
+    <content type="html"><![CDATA[<p>When I found out that Github was hosting pages, I wanted to create a page of my own so my place on Github would be more than numbers and commit histories. Blogging is not really an interest of mine but I do try to keep track of what I’ve learned and there’s so much happening in the programming industry that it is difficult to keep track. I definitely don’t want to write a new .html file every time I had something to say, so I started looking into content management systems. I’ve worked with Wordpress and Joomla in the past, but Github pages do not support those and their <a href="http://pages.github.com/" target="_blank" rel="external">documentation</a> pointed me to <a href="http://jekyllrb.com" target="_blank" rel="external">Jekyll</a>.</p>
+<p>Setting up my Jekyll blog was not a simple task for a few reasons:</p>
+<ol>
+<li>Jekyll requires Ruby. Ruby doesn’t play nice with Windows, which is the only brand of operating system that I use daily.</li>
+<li>If you want syntax highlighting for code snippets, you will need to install <a href="http://pygments.org/" target="_blank" rel="external">Pygments</a>. However, in my case, Pygments kept breaking Jekyll. After a couple weekends of searching, I still had no solution and chose to just discard it.</li>
+<li>Jekyll doesn’t support blog tags, not really. You can add a tag attribute to a post but Jekyll does nothing to link common tags.</li>
+</ol>
+<p>The first two issues are not fresh enough in my mind to clarify further but I can elaborate on implementing tags in Jekyll. I followed Charlie Park’s instructions in <a href="http://charliepark.org/tags-in-jekyll/" target="_blank" rel="external">“Tags in Jekyll”</a> and was able to display tags as links to related posts on localhost… and only localhost. Github pages do not support Jekyll plugins so pages of posts by tag are not generated on the Github server.</p>
+<p>I do not have a true solution for this issue. For now, I just build this blog locally and then copy the generated tag pages to the root directory and publish the changes. It’s not ideal but it still beats writing these pages by hand.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>When I found out that Github was hosting pages, I wanted to create a page of my own so my place on Github would be more than numbers and ]]>
+    </summary>
+    
+      <category term="jekyll" scheme="http://yoursite.com/tags/jekyll/"/>
+    
+      <category term="ruby" scheme="http://yoursite.com/tags/ruby/"/>
+    
+      <category term="github" scheme="http://yoursite.com/tags/github/"/>
+    
+  </entry>
+  
+</feed>
