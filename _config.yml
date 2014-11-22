@@ -14,9 +14,9 @@ language:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://seejessicacode.com/
 root: /
-permalink: :year/:month/:day/:title/
+permalink: blog/:year/:month/:day/:title/
 tag_dir: tags
-archive_dir: archives
+archive_dir: blog
 category_dir: categories
 code_dir: downloads/code
 permalink_defaults:
@@ -28,7 +28,7 @@ public_dir: public
 #RSS feed
 feed:
     type: atom
-    path: atom.xml
+    path: blog/atom.xml
     limit: 10
 
 # Writing
@@ -86,6 +86,7 @@ disqus_shortname: seejessicacode
 ## Themes: https://github.com/hexojs/hexo/wiki/Themes
 theme: myTheme
 exclude_generator:
+  - index
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
